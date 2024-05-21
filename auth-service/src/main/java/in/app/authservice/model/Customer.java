@@ -1,10 +1,10 @@
 package in.app.authservice.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import lombok.*;
 import java.time.LocalDateTime;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Getter
@@ -32,5 +32,5 @@ public class Customer {
 
     @NotNull
     @Column(name = "created_at")
-    private LocalDateTime createdAt
+    private LocalDateTime createdAt;
 }
