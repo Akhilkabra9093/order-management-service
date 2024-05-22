@@ -4,7 +4,6 @@ import in.app.authservice.model.Customer;
 import in.app.authservice.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
 @Service
 public class CustomerService {

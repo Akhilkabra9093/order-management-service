@@ -1,4 +1,4 @@
-package in.app.authservice.routes;
+package in.app.authservice.controller.routes;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

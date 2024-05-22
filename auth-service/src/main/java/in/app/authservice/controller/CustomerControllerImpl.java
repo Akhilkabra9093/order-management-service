@@ -8,7 +8,7 @@ import in.app.authservice.controller.routes.CustomerController;
 public class CustomerControllerImpl implements CustomerController{
     @Override
     public void saveCustomer(CustomerDTO customerDTO){
-       System.out.println(":Inside the save customer call");
+        System.out.println(":Inside the save customer call");
     }
 
 }
