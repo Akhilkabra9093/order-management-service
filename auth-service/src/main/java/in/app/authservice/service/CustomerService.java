@@ -1,18 +1,18 @@
 package in.app.authservice.service;
 
-import in.app.authservice.enums.Gender;
 import in.app.authservice.helper.Constants;
 import in.app.authservice.helper.CustomerHelper;
-import in.app.authservice.model.entity.Customer;
 import in.app.authservice.model.entity.Password;
 import in.app.authservice.model.request.CustomerDTO;
 import in.app.authservice.model.request.LoginCred;
+import in.app.authservice.model.request.UpdatePassword;
 import in.app.authservice.repository.CustomerRepository;
 import in.app.authservice.repository.PasswordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -66,6 +66,22 @@ public class CustomerService {
         if(password.isPresent()){
             String encodedPasswordDb = password.get().getPassword();
             return passwordEncoder.verifyPassword(loginCred.getPassword(), encodedPasswordDb);
+        }
+        return false;
+    }
+
+    public boolean changePassword(UpdatePassword updatePassword){
+        Optional<Password> password = passwordRepository.findByUsername(updatePassword.getEmail());
+        if(password.isPresent()){
+            String encodedPasswordDb = password.get().getPassword();
+            boolean flag = passwordEncoder.verifyPassword(updatePassword.getOldPassword(), encodedPasswordDb);
+            if(flag){
+               Password pass = password.get();
+               pass.setPassword(passwordEncoder.encodePassword(updatePassword.getNewPassword()));
+               pass.setUpdatedAt(LocalDateTime.now());
+               passwordRepository.save(pass);
+               return true;
+            }
         }
         return false;
     }

@@ -3,11 +3,11 @@ package in.app.authservice.controller;
 import in.app.authservice.helper.Constants;
 import in.app.authservice.model.request.EmailCheck;
 import in.app.authservice.model.request.LoginCred;
+import in.app.authservice.model.request.UpdatePassword;
 import in.app.authservice.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import in.app.authservice.model.request.CustomerDTO;
 import in.app.authservice.controller.routes.CustomerController;
@@ -44,4 +44,14 @@ public class CustomerControllerImpl implements CustomerController{
         }
     }
 
+    @Override
+    public ResponseEntity<String> newPassword(UpdatePassword updatePassword) {
+        System.out.println(":Inside the login customer call");
+        boolean response = customerService.changePassword(updatePassword);
+        if(response){
+            return new ResponseEntity<>("Password updated successfully" , HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("Password update failed" , HttpStatus.BAD_REQUEST);
+        }
+    }
 }
