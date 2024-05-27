@@ -6,11 +6,14 @@ import in.app.authservice.helper.CustomerHelper;
 import in.app.authservice.model.entity.Customer;
 import in.app.authservice.model.entity.Password;
 import in.app.authservice.model.request.CustomerDTO;
+import in.app.authservice.model.request.LoginCred;
 import in.app.authservice.repository.CustomerRepository;
 import in.app.authservice.repository.PasswordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 public class CustomerService {
@@ -52,11 +55,19 @@ public class CustomerService {
         return Constants.OK;
     }
 
-    public Object savePassword(String password, String email) {
+    public void savePassword(String password, String email) {
         String encodedPassword = passwordEncoder.encodePassword(password);
         Password password1 = customerHelper.makePassword(email, encodedPassword);
         passwordRepository.saveAndFlush(password1);
-        return Constants.OK;
+    }
+
+    public boolean loginUser(LoginCred loginCred){
+        Optional<Password> password = passwordRepository.findByUsername(loginCred.getUsername());
+        if(password.isPresent()){
+            String encodedPasswordDb = password.get().getPassword();
+            return passwordEncoder.verifyPassword(loginCred.getPassword(), encodedPasswordDb);
+        }
+        return false;
     }
 
 }
