@@ -2,6 +2,7 @@ package in.app.authservice.helper;
 
 import in.app.authservice.enums.Gender;
 import in.app.authservice.model.entity.Customer;
+import in.app.authservice.model.entity.Password;
 import in.app.authservice.model.request.CustomerDTO;
 import org.springframework.stereotype.Component;
 
@@ -23,5 +24,15 @@ public class CustomerHelper {
         }
         customer.setCreatedAt(LocalDateTime.now());
         return customer;
+    }
+
+    public Password makePassword(String username , String encodedPassword){
+        Password password = new Password();
+        password.setUsername(username);
+        password.setPassword(encodedPassword);
+        password.setCreatedAt(LocalDateTime.now());
+        password.setUpdatedAt(LocalDateTime.now());
+
+        return password;
     }
 }

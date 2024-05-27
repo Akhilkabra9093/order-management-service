@@ -6,7 +6,6 @@ import in.app.authservice.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import in.app.authservice.model.request.CustomerDTO;
 import in.app.authservice.controller.routes.CustomerController;
@@ -22,7 +21,7 @@ public class CustomerControllerImpl implements CustomerController{
         return new ResponseEntity<>(customerService.createCustomer(customerDTO) , HttpStatus.OK);
     }
 
-    public ResponseEntity<String> checkCustomer(@RequestBody final EmailCheck emailCheck){
+    public ResponseEntity<String> checkCustomer(EmailCheck emailCheck){
         System.out.println(":Inside the check customer call");
         String response = customerService.checkCustomer(emailCheck.getEmail());
         if(response.equalsIgnoreCase(Constants.OK)){

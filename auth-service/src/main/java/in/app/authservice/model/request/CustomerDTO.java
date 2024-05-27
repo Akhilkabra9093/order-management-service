@@ -1,6 +1,5 @@
 package in.app.authservice.model.request;
 
-import javax.persistence.*;
 import lombok.*;
 
 @Getter
@@ -12,6 +11,14 @@ public class CustomerDTO{
     private String address;
     private String gender;
     private String phoneNumber;
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getName() {
         return name;
