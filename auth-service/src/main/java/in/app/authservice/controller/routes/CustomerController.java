@@ -10,16 +10,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
+@RequestMapping("/api/customers")
 public interface CustomerController{
-    @PostMapping("api/customer/create")
+    @PostMapping("/create")
     Object saveCustomer(@RequestBody final CustomerDTO customerDTO);
 
-    @PostMapping("api/customer/check")
+    @PostMapping("/check")
     ResponseEntity<String> checkCustomer(@RequestBody final EmailCheck emailCheck);
 
-    @PostMapping("api/customer/login")
+    @PostMapping("/login")
     ResponseEntity<String> loginCustomer(@RequestBody final LoginCred loginCred);
 
-    @PostMapping("api/customer/password/update")
+    @PostMapping("/password/update")
     ResponseEntity<String> newPassword(@RequestBody final UpdatePassword updatePassword);
 }
